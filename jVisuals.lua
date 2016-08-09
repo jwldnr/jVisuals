@@ -1,5 +1,7 @@
 -- locals and speed
 local AddonName, Addon = ...;
+local pairs = pairs;
+local select = select;
 
 -- main
 function Addon:Load()
