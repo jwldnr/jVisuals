@@ -1,0 +1,7 @@
+## Interface: 70000
+## Title: jVisuals
+## Notes: Turns yellow text into white-- also darker ui frames
+## Version: 1.0
+## Author: jwldnr
+
+jVisuals.lua
