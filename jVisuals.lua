@@ -206,9 +206,6 @@ function Addon:PLAYER_LOGIN()
     frame:Hide();
     frame.Show = function() end
   end
-
-  -- set status text
-  SetCVar('statusText', '0');
 end
 
 -- call
