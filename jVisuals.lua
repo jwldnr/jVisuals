@@ -189,16 +189,6 @@ function Addon:PLAYER_LOGIN()
     background:SetTexture('Interface\\TargetingFrame\\UI-StatusBar');
   end
 
-  for _, name in pairs({
-      PartyMemberFrame1PetFrameName,
-      PartyMemberFrame2PetFrameName,
-      PartyMemberFrame3PetFrameName,
-      PartyMemberFrame4PetFrameName,
-    }) do
-    name:Hide();
-    name.Show = function() end
-  end
-
   GameFontNormalSmall:SetTextColor(1.0, 1.0, 1.0);
 end
 
