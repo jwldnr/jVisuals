@@ -27,7 +27,7 @@ function Addon:OnEvent(event, ...)
 end
 
 function Addon:PLAYER_LOGIN()
-  for _, frame in pairs({
+  for _, texture in pairs({
       -- unit frames
       PlayerFrameTexture,
       TargetFrameTextureFrameTexture,
@@ -172,40 +172,34 @@ function Addon:PLAYER_LOGIN()
       QueueStatusMinimapButtonBorder,
       select(1, TimeManagerClockButton:GetRegions())
     }) do
-    frame:SetVertexColor(0.33, 0.33, 0.33);
+    texture:SetVertexColor(0.33, 0.33, 0.33);
   end
 
-  for _, frame in pairs({
+  for _, texture in pairs({
       select(2, TimeManagerClockButton:GetRegions())
     }) do
-    frame:SetVertexColor(1.0, 1.0, 1.0);
+    texture:SetVertexColor(1.0, 1.0, 1.0);
   end
 
-  for _, frame in pairs({
-      PlayerName,
-      PlayerLevelText,
-      TargetFrameTextureFrameName,
-      TargetFrameToTTextureFrameName,
-      FocusFrameTextureFrameName,
-      FocusFrameToTTextureFrameName,
-      PartyMemberFrame1Name,
-      PartyMemberFrame2Name,
-      PartyMemberFrame3Name,
-      PartyMemberFrame4Name,
+  for _, background in pairs({
+      TargetFrameBackground,
+      TargetFrameNameBackground,
+      FocusFrameNameBackground
     }) do
-    frame:SetVertexColor(1.0, 1.0, 1.0);
-    frame.SetVertexColor = function () end
+    background:SetTexture('Interface\\TargetingFrame\\UI-StatusBar');
   end
 
-  for _, frame in pairs({
+  for _, name in pairs({
       PartyMemberFrame1PetFrameName,
       PartyMemberFrame2PetFrameName,
       PartyMemberFrame3PetFrameName,
       PartyMemberFrame4PetFrameName,
     }) do
-    frame:Hide();
-    frame.Show = function() end
+    name:Hide();
+    name.Show = function() end
   end
+
+  GameFontNormalSmall:SetTextColor(1.0, 1.0, 1.0);
 end
 
 -- call
