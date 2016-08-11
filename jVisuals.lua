@@ -173,7 +173,7 @@ function Addon:PLAYER_LOGIN()
       QueueStatusMinimapButtonBorder,
       select(1, TimeManagerClockButton:GetRegions())
     }) do
-    texture:SetVertexColor(0.33, 0.33, 0.33);
+    texture:SetVertexColor(.33, .33, .33);
   end
 
   for _, texture in pairs({
