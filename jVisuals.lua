@@ -178,7 +178,7 @@ function Addon:PLAYER_LOGIN()
   for _, texture in pairs({
       select(2, TimeManagerClockButton:GetRegions())
     }) do
-    texture:SetVertexColor(1.0, 1.0, 1.0);
+    texture:SetVertexColor(1, 1, 1);
   end
 
   for _, background in pairs({
@@ -189,7 +189,7 @@ function Addon:PLAYER_LOGIN()
     background:SetTexture('Interface\\TargetingFrame\\UI-StatusBar');
   end
 
-  GameFontNormalSmall:SetTextColor(1.0, 1.0, 1.0);
+  GameFontNormalSmall:SetTextColor(1, 1, 1);
 end
 
 -- call
