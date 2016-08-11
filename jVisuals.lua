@@ -187,7 +187,7 @@ function Addon:PLAYER_LOGIN()
       TargetFrameNameBackground,
       FocusFrameNameBackground
     }) do
-    background:SetTexture('Interface\\AddOns\\jVisuals\\Textures\\UI-StatusBar');
+    background:SetTexture('Interface\\TargetingFrame\\UI-StatusBar');
   end
 
   GameFontNormalSmall:SetTextColor(1, 1, 1);
