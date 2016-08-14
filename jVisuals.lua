@@ -183,7 +183,7 @@ function Addon:PLAYER_LOGIN()
   end
 
   for _, background in pairs({
-      TargetFrameBackground,
+      PlayerFrameNameBackground,
       TargetFrameNameBackground,
       FocusFrameNameBackground
     }) do
