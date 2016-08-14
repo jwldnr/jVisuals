@@ -191,7 +191,7 @@ function Addon:PLAYER_LOGIN()
   end
 
   GameFontNormalSmall:SetTextColor(1, 1, 1);
-end
+end 
 
 -- call
 Addon:Load();
