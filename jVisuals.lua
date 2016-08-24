@@ -293,7 +293,7 @@ do
 
   function Addon:StyleActionButtons()
     for i = 1, NUM_ACTIONBAR_BUTTONS do
-      for k, v in pairs({
+      for _, v in pairs({
           'ActionButton',
           'MultiBarBottomLeftButton',
           'MultiBarBottomRightButton',
