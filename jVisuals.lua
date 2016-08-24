@@ -260,7 +260,7 @@ do
 
     pushedTexture:SetPoint('TOPLEFT', button, 'TOPLEFT', -2, 2);
     pushedTexture:SetPoint('BOTTOMRIGHT', button, 'BOTTOMRIGHT', 2, -2);
-    pushedTexture:SetVertexColor(.8, .8, .8, .8);
+    pushedTexture:SetVertexColor(.9, .9, .9, .9);
 
     -- cut the default border of the icon
     icon:SetTexCoord(0.1, 0.9, 0.1, 0.9);
@@ -293,11 +293,16 @@ do
 
   function Addon:StyleActionButtons()
     for i = 1, NUM_ACTIONBAR_BUTTONS do
-      StyleActionButton(_G['ActionButton'..i]);
-      StyleActionButton(_G['MultiBarBottomLeftButton'..i]);
-      StyleActionButton(_G['MultiBarBottomRightButton'..i]);
-      StyleActionButton(_G['MultiBarRightButton'..i]);
-      StyleActionButton(_G['MultiBarLeftButton'..i]);
+      for k, v in pairs({
+          'ActionButton',
+          'MultiBarBottomLeftButton',
+          'MultiBarBottomRightButton',
+          'MultiBarRightButton',
+          'MultiBarLeftButton'
+        }) do
+        local button = _G[v..i];
+        StyleActionButton(button);
+      end
     end
   end
 end
