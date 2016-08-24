@@ -4,6 +4,17 @@ local AddonName, Addon = ...;
 local pairs = pairs;
 local select = select;
 
+local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS or 12;
+
+local BUTTON_BACKDROP = {
+  bgFile = nil,
+  edgeFile = 'Interface\\AddOns\\jVisuals\\Textures\\ButtonBackdrop',
+  tile = false,
+  tileSize = 32,
+  edgeSize = 5,
+  insets = { left = 0, right = 0, top = 0, bottom = 0 }
+};
+
 -- main
 function Addon:Load()
   do
@@ -27,7 +38,7 @@ function Addon:OnEvent(event, ...)
   end
 end
 
-function Addon:PLAYER_LOGIN()
+function Addon:DarkenTextures()
   for _, texture in pairs({
       -- unit frames
       PlayerFrameTexture,
@@ -180,12 +191,15 @@ function Addon:PLAYER_LOGIN()
     texture:SetVertexColor(.3, .3, .3);
   end
 
-  for _, texture in pairs({
+  -- clock text font
+  for _, font in pairs({
       select(2, TimeManagerClockButton:GetRegions())
     }) do
-    texture:SetVertexColor(1, 1, 1);
+    font:SetVertexColor(1, 1, 1);
   end
+end
 
+function Addon:ApplyNameBackgroundTexture()
   for _, background in pairs({
       PlayerFrameNameBackground,
       TargetFrameNameBackground,
@@ -193,8 +207,106 @@ function Addon:PLAYER_LOGIN()
     }) do
     background:SetTexture('Interface\\TargetingFrame\\UI-StatusBar');
   end
+end
 
-  GameFontNormalSmall:SetTextColor(1, 1, 1);
+function Addon:SetFontColors(r, g, b)
+  GameFontNormalSmall:SetTextColor(r, g, b);
+end
+
+do
+  local function Texture_SetVertexColor(texture, r, g, b, a)
+    local r, g, b = .3, .3, .3;
+
+    if (r ~= texture.r or g ~= texture.g or b ~= texture.b) then
+      texture:SetVertexColor(r, g, b, a);
+    end
+  end
+
+  local function StyleActionButton(button)
+    if (not button) then return end
+
+    local name = button:GetName();
+    local border = _G[name..'Border'];
+    local cooldown = _G[name..'Cooldown'];
+    local floatingBG = _G[name..'FloatingBG'];
+    local flyoutBorder = _G[name..'FlyoutBorder'];
+    local flyoutBorderShadow = _G[name..'FlyoutBorderShadow'];
+    local icon = _G[name..'Icon'];
+    local normalTexture = button:GetNormalTexture();
+    local pushedTexture = button:GetPushedTexture();
+
+    if (fluoutBorder) then
+      fluoutBorder:SetTexture(nil);
+    end
+
+    if (flyoutBorderShadow) then
+      flyoutBorderShadow:SetTexture(nil);
+    end
+
+    if (floatingBG) then
+      floatingBG:Hide();
+    end
+
+    border:SetTexture(nil);
+
+    -- apply textures
+    button:SetNormalTexture('Interface\\AddOns\\jVisuals\\Textures\\ButtonTexture');
+    button:SetPushedTexture('Interface\\AddOns\\jVisuals\\Textures\\ButtonTexture');
+
+    -- make the normal texture match the button size
+    normalTexture:SetPoint('TOPLEFT', button, 'TOPLEFT', -2, 2);
+    normalTexture:SetPoint('BOTTOMRIGHT', button, 'BOTTOMRIGHT', 2, -2);
+    normalTexture:SetVertexColor(.3, .3, .3, .9);
+
+    pushedTexture:SetPoint('TOPLEFT', button, 'TOPLEFT', -2, 2);
+    pushedTexture:SetPoint('BOTTOMRIGHT', button, 'BOTTOMRIGHT', 2, -2);
+    pushedTexture:SetVertexColor(.8, .8, .8, .8);
+
+    -- cut the default border of the icon
+    icon:SetTexCoord(0.1, 0.9, 0.1, 0.9);
+    icon:SetPoint('TOPLEFT', button, 'TOPLEFT', 2, -2);
+    icon:SetPoint('BOTTOMRIGHT', button, 'BOTTOMRIGHT', -2, 2);
+
+    -- adjust the cooldown frame
+    cooldown:SetPoint('TOPLEFT', button, 'TOPLEFT', 0, 0);
+    cooldown:SetPoint('BOTTOMRIGHT', button, 'BOTTOMRIGHT', 0, 0);
+
+    -- hook to prevent reseting color
+    hooksecurefunc(normalTexture, 'SetVertexColor', Texture_SetVertexColor);
+
+    if (not button.shadow) then
+      if (button:GetFrameLevel() < 1) then
+        button:SetFrameLevel(1);
+      end
+
+      button.shadow = CreateFrame('Frame', nil, button);
+      button.shadow:SetAllPoints(button);
+      button.shadow:SetPoint('TOPLEFT', button, 'TOPLEFT', -3, 3);
+      button.shadow:SetPoint('BOTTOMRIGHT', button, 'BOTTOMRIGHT', 3, -3);
+      button.shadow:SetFrameLevel(button:GetFrameLevel() - 1);
+
+      button.shadow:SetBackdrop(BUTTON_BACKDROP);
+      button.shadow:SetBackdropColor(.2, .2, .2, 1);
+      button.shadow:SetBackdropBorderColor(0, 0, 0, 1);
+    end
+  end
+
+  function Addon:StyleActionButtons()
+    for i = 1, NUM_ACTIONBAR_BUTTONS do
+      StyleActionButton(_G['ActionButton'..i]);
+      StyleActionButton(_G['MultiBarBottomLeftButton'..i]);
+      StyleActionButton(_G['MultiBarBottomRightButton'..i]);
+      StyleActionButton(_G['MultiBarRightButton'..i]);
+      StyleActionButton(_G['MultiBarLeftButton'..i]);
+    end
+  end
+end
+
+function Addon:PLAYER_LOGIN()
+  self:DarkenTextures();
+  self:ApplyNameBackgroundTexture();
+  self:SetFontColors(1, 1, 1);
+  self:StyleActionButtons();
 end
 
 -- call
