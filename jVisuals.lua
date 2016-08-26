@@ -8,7 +8,7 @@ local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS or 12;
 
 local BUTTON_BACKDROP = {
   bgFile = nil,
-  edgeFile = 'Interface\\AddOns\\jVisuals\\Textures\\ButtonBackdrop',
+  edgeFile = 'Interface\\AddOns\\jVisuals\\Textures\\Button\\Shadow',
   tile = false,
   tileSize = 32,
   edgeSize = 5,
@@ -250,20 +250,20 @@ do
     border:SetTexture(nil);
 
     -- apply textures
-    button:SetNormalTexture('Interface\\AddOns\\jVisuals\\Textures\\ButtonTexture');
-    button:SetPushedTexture('Interface\\AddOns\\jVisuals\\Textures\\ButtonTexture');
+    button:SetNormalTexture('Interface\\AddOns\\jVisuals\\Textures\\Button\\Normal');
+    button:SetPushedTexture('Interface\\AddOns\\jVisuals\\Textures\\Button\\Normal');
 
     -- make the normal texture match the button size
     normalTexture:SetPoint('TOPLEFT', button, 'TOPLEFT', -2, 2);
     normalTexture:SetPoint('BOTTOMRIGHT', button, 'BOTTOMRIGHT', 2, -2);
-    normalTexture:SetVertexColor(.3, .3, .3, .9);
+    normalTexture:SetVertexColor(.3, .3, .3, 1);
 
     pushedTexture:SetPoint('TOPLEFT', button, 'TOPLEFT', -2, 2);
     pushedTexture:SetPoint('BOTTOMRIGHT', button, 'BOTTOMRIGHT', 2, -2);
-    pushedTexture:SetVertexColor(.9, .9, .9, .9);
+    pushedTexture:SetVertexColor(.9, .9, .9, 1);
 
     -- cut the default border of the icon
-    icon:SetTexCoord(0.1, 0.9, 0.1, 0.9);
+    icon:SetTexCoord(.04, .96, .04, .96);
     icon:SetPoint('TOPLEFT', button, 'TOPLEFT', 2, -2);
     icon:SetPoint('BOTTOMRIGHT', button, 'BOTTOMRIGHT', -2, 2);
 
