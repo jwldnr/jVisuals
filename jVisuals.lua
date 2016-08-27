@@ -5,16 +5,6 @@ local pairs = pairs;
 local select = select;
 
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS or 12;
-
-local BUTTON_BACKDROP = {
-  bgFile = nil,
-  edgeFile = 'Interface\\AddOns\\jVisuals\\Textures\\Button\\Shadow',
-  tile = false,
-  tileSize = 32,
-  edgeSize = 5,
-  insets = { left = 0, right = 0, top = 0, bottom = 0 }
-};
-
 -- main
 function Addon:Load()
   do
