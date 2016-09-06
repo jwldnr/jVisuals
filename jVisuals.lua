@@ -236,7 +236,6 @@ function Addon:PLAYER_LOGIN()
   self:SetFontColors(1, 1, 1);
   self:StyleActionButtons();
 
-
   -- show/hide friendly/enemy player names/guild/titles
   SetCVar('UnitNameFriendlyPlayerName', 1);
   SetCVar('UnitNameEnemyPlayerName', 1);
