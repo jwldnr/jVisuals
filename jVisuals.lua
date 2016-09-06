@@ -235,6 +235,15 @@ function Addon:PLAYER_LOGIN()
   self:ApplyNameBackgroundTexture();
   self:SetFontColors(1, 1, 1);
   self:StyleActionButtons();
+
+
+  -- show/hide friendly/enemy player names/guild/titles
+  SetCVar('UnitNameFriendlyPlayerName', 1);
+  SetCVar('UnitNameEnemyPlayerName', 1);
+  -- SetCVar('UnitNameOwn', 1);
+  SetCVar('UnitNamePlayerPVPTitle', 0);
+  SetCVar('UnitNamePlayerGuild', 0);
+  SetCVar('UnitNameGuildTitle', 0);
 end
 
 -- call
