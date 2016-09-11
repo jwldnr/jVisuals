@@ -1,10 +1,12 @@
 -- locals and speed
 local AddonName, Addon = ...;
 
+local _G = _G;
 local pairs = pairs;
 local select = select;
 
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS or 12;
+
 -- main
 function Addon:Load()
   do
@@ -26,6 +28,22 @@ function Addon:OnEvent(event, ...)
   if (action) then
     action(self, event, ...);
   end
+end
+
+-- hooks
+do
+  local function Frame_UpdateAnchors(frame)
+    Addon:UpdateAnchors(frame);
+  end
+
+  function Addon:HookActionEvents()
+    hooksecurefunc(AlertFrame, 'UpdateAnchors', Frame_UpdateAnchors);
+  end
+end
+
+function Addon:UpdateAnchors(frame)
+  frame:ClearAllPoints();
+  frame:SetPoint('CENTER', UIParent, 'TOP', 0, 0);
 end
 
 function Addon:DarkenTextures()
@@ -211,7 +229,7 @@ do
     local icon = _G[name..'Icon'];
 
     -- cut the default border of the icon
-    icon:SetTexCoord(.04, .96, .04, .96);
+    icon:SetTexCoord(.06, .94, .06, .94);
   end
 
   function Addon:StyleActionButtons()
@@ -231,6 +249,7 @@ do
 end
 
 function Addon:PLAYER_LOGIN()
+  self:HookActionEvents();
   self:DarkenTextures();
   self:ApplyNameBackgroundTexture();
   self:SetFontColors(1, 1, 1);
