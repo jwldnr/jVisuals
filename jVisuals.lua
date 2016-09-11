@@ -43,7 +43,7 @@ end
 
 function Addon:UpdateAnchors(frame)
   frame:ClearAllPoints();
-  frame:SetPoint('CENTER', UIParent, 'TOP', 0, 0);
+  frame:SetPoint('CENTER', UIParent, 'CENTER', 0, 300);
 end
 
 function Addon:DarkenTextures()
@@ -229,7 +229,7 @@ do
     local icon = _G[name..'Icon'];
 
     -- cut the default border of the icon
-    icon:SetTexCoord(.06, .94, .06, .94);
+    icon:SetTexCoord(.04, .96, .04, .96);
   end
 
   function Addon:StyleActionButtons()
