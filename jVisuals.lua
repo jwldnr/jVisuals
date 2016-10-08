@@ -36,14 +36,31 @@ do
     Addon:UpdateAnchors(frame);
   end
 
+  local function Tooltip_OnShow(frame)
+    Addon:ShowTooltip(frame);
+  end
+
+  local function Tooltip_OnUpdate(frame, ...)
+    Addon:UpdateTooltip(frame, ...);
+  end
+
   function Addon:HookActionEvents()
-    hooksecurefunc(AlertFrame, 'UpdateAnchors', Frame_UpdateAnchors);
+    -- hooksecurefunc(AlertFrame, 'UpdateAnchors', Frame_UpdateAnchors);
+    -- GameTooltip:HookScript('OnShow', Tooltip_OnShow);
+    -- GameTooltipStatusBar:HookScript('OnShow', Tooltip_OnShow);
+  end
+end
+
+function Addon:ShowTooltip(frame)
+  for i = 1, GameTooltip:NumLines() do
+    local left = _G[GameTooltip:GetName().."TextLeft"..i];
+    left:SetText('text');
   end
 end
 
 function Addon:UpdateAnchors(frame)
   frame:ClearAllPoints();
-  frame:SetPoint('CENTER', UIParent, 'CENTER', 0, 300);
+  frame:SetPoint('CENTER', UIParent, 'CENTER', 0, 220);
 end
 
 function Addon:DarkenTextures()
@@ -258,7 +275,7 @@ function Addon:PLAYER_LOGIN()
   -- show/hide friendly/enemy player names/guild/titles
   SetCVar('UnitNameFriendlyPlayerName', 1);
   SetCVar('UnitNameEnemyPlayerName', 1);
-  -- SetCVar('UnitNameOwn', 1);
+  SetCVar('UnitNameOwn', 1);
   SetCVar('UnitNamePlayerPVPTitle', 0);
   SetCVar('UnitNamePlayerGuild', 0);
   SetCVar('UnitNameGuildTitle', 0);
